@@ -1,0 +1,27 @@
+{% extends "includes/base.html" %}
+{% block title %}Статистика просмотра новостей{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>Статистика просмотра новостей</h1>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Новость</th>
+        <th scope="col">Количество просмотров</th>
+        <th scope="col">Дата публикации</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in page %}
+        <tr class="table-active">
+          <th scope="row"><a href="{% url "news" item_id=item.id %}">{{ item.title }}</a></th>
+          <td>{{ item.total_views }}</td>
+          <td>{{ item.pub_date|date:"d M Y" }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% include "includes/paginator.html" %}
+  </div>
+{% endblock %}

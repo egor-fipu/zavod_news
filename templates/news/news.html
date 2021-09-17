@@ -1,0 +1,8 @@
+{% extends "includes/base.html" %}
+{% block title %}Просмотр новости {{ news.title }}{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+  <div class="container">
+    {% include "includes/news_card.html" %}
+  </div>
+{% endblock %}

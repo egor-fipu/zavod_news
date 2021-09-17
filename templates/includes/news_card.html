@@ -1,0 +1,57 @@
+<!-- Шаблон карточки новости -->
+<div class="card mb-3 mt-1 shadow-sm">
+  <div class="card-header">{{ item.title }}</div>
+  <!-- Отображение картинки -->
+  {% load thumbnail %}
+  {% thumbnail item.image "960x339" crop="center" upscale=True as im %}
+    <img class="card-img" src="{{ im.url }}">
+  {% endthumbnail %}
+  <!-- Отображение текста поста -->
+  <div class="card-body">
+    <p class="card-text">
+      <!-- Текст новости -->
+      {% if page %}
+        <p>{{ item.text|linebreaksbr|truncatewords:40 }}</p>
+        <hr>
+      {% else %}
+        <p>{{ item.text|linebreaksbr }}</p>
+        <hr>
+      {% endif %}
+    </p>
+    <!-- Если пост относится к какому-нибудь тэгу -->
+    <div class="d-flex">
+      <div class="mx-1 pb-2">
+        {% if item.tag.all %}
+          {% for t in item.tag.all %}
+            <a class="mr-2" href="{% url "tag_news" slug=t.slug %}">
+              <strong>#{{ t.name }}</strong>
+            </a>
+          {% endfor %}
+        {% else %}
+          <a class="card-link"></a>
+        {% endif %}
+      </div>
+    </div>
+    <!-- Отображение ссылки на просмотр -->
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <!-- Ссылка на страницу записи в атрибуте href-->
+        {% if page %}
+          <a class="btn btn-sm btn-primary" href="{% url "news" item_id=item.id %}" role="button">
+            Просмотр
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="d-flex card-footer text-muted">
+    <div class="mx-1 pb-2">
+      <small class="text-muted">{{ item.pub_date|date:"d M Y" }}</small>
+    </div>
+    <div class="ml-auto">
+      <a>
+        Просмотров: <span class="badge badge-primary badge-pill">{{ item.total_views }}</span>
+      </a>
+    </div>
+  </div>
+</div>

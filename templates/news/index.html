@@ -1,0 +1,17 @@
+{% extends "includes/base.html" %}
+{% block title %}Последние новости{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+  <div class="container">
+    {% include "includes/menu.html" with index=True %}
+    <h1>Последние новости</h1>
+    <div class="row">
+      {% for item in page %}
+        <div class="col-sm-6">
+          {% include "includes/news_card.html" with item=item %}
+        </div>
+      {% endfor %}
+    </div>
+    {% include "includes/paginator.html" %}
+  </div>
+{% endblock %}

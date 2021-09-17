@@ -1,0 +1,12 @@
+{% extends "includes/base.html" %}
+{% block title %}Новости по тегу #{{ tag.name }}{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>Новости по тегу #{{ tag.name }}</h1>
+    {% for item in page %}
+      {% include "includes/news_card.html" with item=item %}
+    {% endfor %}
+    {% include "includes/paginator.html" %}
+  </div>
+{% endblock %}
